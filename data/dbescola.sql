@@ -51,3 +51,26 @@ FOREIGN KEY (sala_id) REFERENCES tb_sala (pk_id_sala);
 ALTER TABLE tb_presenca
 ADD CONSTRAINT fk_presenca_professor
 FOREIGN KEY (professor_id) REFERENCES tb_professor (pk_id_professor);
+
+
+INSERT INTO tb_professor (nome_professor, email_professor)
+VALUES 
+('Carlos Silva', 'carlos.silva@escola.com'),
+('Ana Oliveira', 'ana.oliveira@escola.com');
+
+
+INSERT INTO tb_sala (nome_sala, capacidade)
+VALUES 
+('Matemática Avançada', 30),
+('História Moderna', 25);
+
+INSERT INTO tb_aluno (nome_aluno, email_aluno, data_nascimento_aluno, sala_id, professor_id)
+VALUES 
+('João Pedro', 'joao.pedro@escola.com', '2008-05-12', 1, 1),
+('Maria Clara', 'maria.clara@escola.com', '2009-08-20', 2, 2);
+
+
+INSERT INTO tb_presenca (aluno_id, sala_id, professor_id, data_presenca)
+VALUES 
+(1, 1, 1, '2024-11-27'),
+(2, 2, 2, '2024-11-27');
