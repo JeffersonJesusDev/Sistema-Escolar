@@ -1,6 +1,8 @@
 create database dbescola;
-use db_escola;
+drop database dbescola;
+use dbescola;
 
+select * from tb_professor;
 
 CREATE TABLE tb_aluno (
     pk_id_aluno BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -74,3 +76,8 @@ INSERT INTO tb_presenca (aluno_id, sala_id, professor_id, data_presenca)
 VALUES 
 (1, 1, 1, '2024-11-27'),
 (2, 2, 2, '2024-11-27');
+
+INSERT INTO tb_sala (nome_sala, capacidade) VALUES ('Sala A', 30);
+INSERT INTO tb_professor (nome_professor, email_professor) VALUES ('Prof. João', 'joao@email.com');
+INSERT INTO tb_aluno (nome_aluno, email_aluno, data_nascimento_aluno, sala_id, professor_id)
+VALUES ('Maria Silva', 'maria@email.com', '2005-03-10', 1, 1);

@@ -2,6 +2,8 @@ package com.jeffdev.sistemaescolar.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_sala")
 public class Sala {
@@ -16,6 +18,19 @@ public class Sala {
 
     @Column(name = "capacidade", nullable = false)
     private Integer capacidade;
+
+    @OneToMany(mappedBy = "sala")
+    private List<Aluno> alunos;
+
+    public Sala() {
+    }
+
+    public Sala(Long id, String nome, Integer capacidade, List<Aluno> alunos) {
+        this.id = id;
+        this.nome = nome;
+        this.capacidade = capacidade;
+        this.alunos = alunos;
+    }
 
     public Long getId() {
         return id;
@@ -39,5 +54,13 @@ public class Sala {
 
     public void setCapacidade(Integer capacidade) {
         this.capacidade = capacidade;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 }

@@ -17,25 +17,16 @@ public class AlunoController {
     private AlunoRepository alunoRepository;
 
     @GetMapping
-    public List<Aluno> listarAlunos() {
-        return alunoRepository.findAll();
-    }
+   public List<Aluno> getAlunos() {
+       return alunoRepository.findAll();
+   }
 
     @PostMapping
     public Aluno criarAluno(@RequestBody Aluno aluno) {
         return alunoRepository.save(aluno);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Aluno> atualizarAluno(@PathVariable Long id, @RequestBody Aluno alunoAtualizado) {
-        return alunoRepository.findById(id)
-                .map(aluno -> {
-                    aluno.setNome(alunoAtualizado.getNome());
-                    aluno.setSala(alunoAtualizado.getSala());
-                    aluno.setProfessor(alunoAtualizado.getProfessor());
-                    return ResponseEntity.ok(alunoRepository.save(aluno));
-                }).orElse(ResponseEntity.notFound().build());
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {

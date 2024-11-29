@@ -2,6 +2,8 @@ package com.jeffdev.sistemaescolar.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_professor")
 public class Professor {
@@ -11,11 +13,24 @@ public class Professor {
     @Column(name = "pk_id_professor")
     private Long id;
 
-    @Column(name = "nome_professor", nullable = false)
+    @Column(name = "nome_professor")
     private String nome;
 
     @Column(name = "email_professor")
     private String email;
+
+    @OneToMany(mappedBy = "professor")
+    private List<Aluno> alunos;
+
+    public Professor() {
+    }
+
+    public Professor(Long id, String nome, String email, List<Aluno> alunos) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        //this.alunos = alunos;
+    }
 
     public Long getId() {
         return id;
@@ -40,4 +55,6 @@ public class Professor {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

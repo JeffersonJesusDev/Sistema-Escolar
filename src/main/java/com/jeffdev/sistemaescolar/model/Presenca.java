@@ -13,19 +13,28 @@ public class Presenca {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "aluno_id", nullable = false)
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name = "sala_id", nullable = false)
     private Sala sala;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
-    @Column(name = "data_presenca", nullable = false)
+    @Column(name = "data_presenca")
     private LocalDate dataPresenca;
+
+
+    public Presenca() {
+    }
+
+    public Presenca(Long id, Aluno aluno, Sala sala, Professor professor, LocalDate dataPresenca) {
+        this.id = id;
+        this.aluno = aluno;
+        this.sala = sala;
+        this.professor = professor;
+        this.dataPresenca = dataPresenca;
+    }
 
     public Long getId() {
         return id;

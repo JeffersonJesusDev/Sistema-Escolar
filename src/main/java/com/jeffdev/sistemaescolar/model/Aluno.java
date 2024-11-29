@@ -12,7 +12,7 @@ public class Aluno {
     @Column(name = "pk_id_aluno")
     private Long id;
 
-    @Column(name = "nome_aluno", nullable = false)
+    @Column(name = "nome_aluno")
     private String nome;
 
     @Column(name = "email_aluno")
@@ -22,12 +22,22 @@ public class Aluno {
     private LocalDate dataNascimento;
 
     @ManyToOne
-    @JoinColumn(name = "sala_id", nullable = false)
     private Sala sala;
 
-    @ManyToOne
-    @JoinColumn(name = "professor_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Professor professor;
+
+
+    public Aluno() {
+    }
+
+    public Aluno(Long id, String nome, String email, LocalDate dataNascimento, Sala sala) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.sala = sala;
+    }
 
     public Long getId() {
         return id;
@@ -67,13 +77,5 @@ public class Aluno {
 
     public void setSala(Sala sala) {
         this.sala = sala;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 }
