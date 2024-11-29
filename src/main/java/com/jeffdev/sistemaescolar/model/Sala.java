@@ -1,5 +1,6 @@
 package com.jeffdev.sistemaescolar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class Sala {
     private Integer capacidade;
 
     @OneToMany(mappedBy = "sala")
+    @JsonIgnore
     private List<Aluno> alunos;
 
     public Sala() {

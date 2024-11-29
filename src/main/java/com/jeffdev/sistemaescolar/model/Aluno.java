@@ -22,6 +22,7 @@ public class Aluno {
     private LocalDate dataNascimento;
 
     @ManyToOne
+    @JoinColumn(name = "sala_id", nullable = false)
     private Sala sala;
 
     @ManyToOne(fetch = FetchType.LAZY)
