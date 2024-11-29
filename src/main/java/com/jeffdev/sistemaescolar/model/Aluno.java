@@ -31,7 +31,7 @@ public class Aluno {
     @JoinColumn(name = "professor_id", referencedColumnName = "pk_id_professor", nullable = false)
     @JsonBackReference
     private Professor professor;
-    
+
 
     public Long getId() {
         return id;
