@@ -18,8 +18,7 @@ public class Presenca {
     @ManyToOne
     private Sala sala;
 
-    @ManyToOne
-    private Professor professor;
+
 
     @Column(name = "data_presenca")
     private LocalDate dataPresenca;
@@ -46,14 +45,6 @@ public class Presenca {
 
     public void setSala(Sala sala) {
         this.sala = sala;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 
     public LocalDate getDataPresenca() {

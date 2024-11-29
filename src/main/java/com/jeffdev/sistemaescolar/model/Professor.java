@@ -1,10 +1,11 @@
 package com.jeffdev.sistemaescolar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
+
 
 @Entity
 @Table(name = "tb_professor")
@@ -22,7 +23,7 @@ public class Professor {
     private String email;
 
     @OneToMany(mappedBy = "professor")
-    @JsonIgnore
+    @JsonBackReference
     private List<Aluno> alunos;
 
     public Long getId() {
@@ -56,6 +57,4 @@ public class Professor {
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
-
-
 }

@@ -2,7 +2,6 @@ package com.jeffdev.sistemaescolar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -24,15 +23,13 @@ public class Sala {
     @JsonIgnore
     private List<Aluno> alunos;
 
-    public Sala() {
-    }
 
-    public Sala(Long id, String nome, Integer capacidade, List<Aluno> alunos) {
-        this.id = id;
-        this.nome = nome;
-        this.capacidade = capacidade;
-        this.alunos = alunos;
-    }
+
+
+
+
+
+
 
     public Long getId() {
         return id;
@@ -65,4 +62,6 @@ public class Sala {
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
+
+
 }

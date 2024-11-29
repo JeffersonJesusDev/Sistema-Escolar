@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste Sistema Escolar</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Sistema Escolar</h1>
-
 
         <div class="form-container">
             <h2>Cadastro de Aluno</h2>
@@ -22,43 +23,66 @@
             </form>
         </div>
 
-
         <div class="list-container">
             <h2>Lista de Alunos</h2>
             <button class="btn" id="listarAlunos">Listar Alunos</button>
             <ul id="listaAlunos"></ul>
         </div>
+
+        <div class="form-container">
+            <h2>Atualizar Aluno</h2>
+            <form id="formAtualizar">
+                <input type="number" id="atualizarId" placeholder="ID do Aluno" , required>
+                <input type="text" id="novoNome" placeholder="Novo Nome" required>
+                <button type="submit" class="btn">Atualizar</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Deletar Aluno</h2>
+            <form id="formDeletar">
+                <input type="number" id="deletarId" placeholder="ID do Aluno" required>
+                <button type="submit" class="btn">Deletar</button>
+            </form>
+        </div>
     </div>
+
 
     <script>
 
-        document.getElementById('formAluno').addEventListener('submit', async (event) => {
-            event.preventDefault();
+document.getElementById('formAluno').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-            const aluno = {
-                nome: document.getElementById('nome').value,
-                idade: parseInt(document.getElementById('idade').value),
-                sala: { id: parseInt(document.getElementById('salaId').value) },
-                professor: { id: parseInt(document.getElementById('professorId').value) }
-            };
+    
+    const idade = parseInt(document.getElementById('idade').value);
+    const dataNascimento = new Date();
+    dataNascimento.setFullYear(dataNascimento.getFullYear() - idade); 
 
-            try {
-                const response = await fetch('http://localhost:8080/alunos', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(aluno)
-                });
+    const aluno = {
+        nome: document.getElementById('nome').value,
+        dataNascimento: dataNascimento.toISOString().split('T')[0], 
+        sala: { id: parseInt(document.getElementById('salaId').value) },
+        professor: { id: parseInt(document.getElementById('professorId').value) }
+    };
 
-                if (response.ok) {
-                    alert('Aluno cadastrado com sucesso!');
-                    document.getElementById('formAluno').reset();
-                } else {
-                    alert('Erro ao cadastrar aluno.');
-                }
-            } catch (error) {
-                console.error('Erro na requisição:', error);
-            }
+    try {
+        const response = await fetch('http://localhost:8080/alunos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(aluno)
         });
+
+        if (response.ok) {
+            alert('Aluno cadastrado com sucesso!');
+            document.getElementById('formAluno').reset();
+        } else {
+            alert('Erro ao cadastrar aluno.');
+        }
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+    }
+});
+
 
 
         document.getElementById('listarAlunos').addEventListener('click', async () => {
@@ -80,6 +104,62 @@
                 console.error('Erro na requisição:', error);
             }
         });
+
+        document.getElementById('formAtualizarAluno').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const alunoId = document.getElementById('atualizarId').value;
+            const aluno = {
+                nome: document.getElementById('atualizarNome').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/alunos/' + alunoId, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(aluno)
+                });
+
+                if (response.ok) {
+                    alert('Nome do aluno atualizado com sucesso!');
+                    document.getElementById('formAtualizarAluno').reset();
+                } else {
+                    alert('Erro ao atualizar nome do aluno. Verifique se o ID existe.');
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar nome do aluno:', error);
+            }
+        });
+
+
+        document.getElementById('formDeletarAluno').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const alunoId = document.getElementById('deletarId').value;
+
+            try {
+                const response = await fetch('http://localhost:8080/alunos/' + alunoId, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    alert('Aluno deletado com sucesso!');
+                    document.getElementById('formDeletarAluno').reset();
+                } else if (response.status === 404) {
+                    alert('Erro: Aluno não encontrado.');
+                } else {
+                    alert('Erro desconhecido ao deletar aluno.');
+                }
+            } catch (error) {
+                console.error('Erro ao deletar aluno:', error);
+                alert('Erro ao tentar conectar ao servidor.');
+            }
+        });
+
     </script>
 </body>
+
 </html>

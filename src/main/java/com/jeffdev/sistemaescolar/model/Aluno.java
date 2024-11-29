@@ -2,6 +2,7 @@ package com.jeffdev.sistemaescolar.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -9,31 +10,31 @@ import java.time.LocalDate;
 @Table(name = "tb_aluno")
 public class Aluno {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pk_id_aluno")
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "pk_id_aluno")
+        private Long id;
 
-    @Column(name = "nome_aluno")
-    private String nome;
+        @Column(name = "nome_aluno")
+        private String nome;
 
-    @Column(name = "email_aluno")
-    private String email;
+        @Column(name = "email_aluno")
+        private String email;
 
-    @Column(name = "data_nascimento_aluno")
-    private LocalDate dataNascimento;
+        @Column(name = "data_nascimento_aluno")
+        private String dataNascimento;
 
-    @ManyToOne
-    @JoinColumn(name = "sala_id", nullable = false)
-    private Sala sala;
+        @ManyToOne
+        @JoinColumn(name = "sala_id", nullable = false)
+        private Sala sala;
 
-    @ManyToOne
-    @JoinColumn(name = "professor_id", referencedColumnName = "pk_id_professor", nullable = false)
-    @JsonBackReference
-    private Professor professor;
+        @ManyToOne
+        @JoinColumn(name = "professor_id", referencedColumnName = "pk_id_professor", nullable = false)
+        @JsonBackReference
+        private Professor professor;
 
 
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 
@@ -55,14 +56,6 @@ public class Aluno {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public Sala getSala() {

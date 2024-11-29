@@ -3,9 +3,9 @@ package com.jeffdev.sistemaescolar.controller;
 import com.jeffdev.sistemaescolar.model.Aluno;
 import com.jeffdev.sistemaescolar.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin
@@ -21,19 +21,28 @@ public class AlunoController {
        return alunoRepository.findAll();
    }
 
-    @PostMapping
-    public Aluno criarAluno(@RequestBody Aluno aluno) {
+    @PostMapping//criar aluno
+    public Aluno criarAluno(@RequestBody Aluno aluno){
         return alunoRepository.save(aluno);
     }
 
-
+    @PutMapping("/{id}") //atualizar
+    public Aluno atualizarNomeAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
+        Aluno alunoExistente = alunoRepository.findById(id).orElse(null);
+        if (alunoExistente != null && aluno.getNome() != null) {
+            alunoExistente.setNome(aluno.getNome());
+            return alunoRepository.save(alunoExistente);
+        }
+        return null;
+    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {
+    public ResponseEntity<String> deletarAluno(@PathVariable Long id) {
         if (alunoRepository.existsById(id)) {
             alunoRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Aluno deletado com sucesso");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
         }
-        return ResponseEntity.notFound().build();
     }
 }
