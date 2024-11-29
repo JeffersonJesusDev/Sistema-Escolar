@@ -34,6 +34,11 @@ CREATE TABLE tb_presenca (
 );
 
 
+ALTER TABLE tb_aluno ADD COLUMN professor_id BIGINT;
+ALTER TABLE tb_aluno ADD CONSTRAINT fk_professor FOREIGN KEY (professor_id) REFERENCES tb_professor(pk_id_professor);
+
+
+
 ALTER TABLE tb_aluno
 ADD CONSTRAINT fk_aluno_sala
 FOREIGN KEY (sala_id) REFERENCES tb_sala (pk_id_sala);

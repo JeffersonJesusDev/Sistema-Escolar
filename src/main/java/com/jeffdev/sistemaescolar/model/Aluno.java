@@ -1,5 +1,7 @@
 package com.jeffdev.sistemaescolar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -25,20 +27,11 @@ public class Aluno {
     @JoinColumn(name = "sala_id", nullable = false)
     private Sala sala;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "professor_id", referencedColumnName = "pk_id_professor", nullable = false)
+    @JsonBackReference
     private Professor professor;
-
-
-    public Aluno() {
-    }
-
-    public Aluno(Long id, String nome, String email, LocalDate dataNascimento, Sala sala) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.sala = sala;
-    }
+    
 
     public Long getId() {
         return id;
@@ -78,5 +71,13 @@ public class Aluno {
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 }

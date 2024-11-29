@@ -1,5 +1,7 @@
 package com.jeffdev.sistemaescolar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,17 +22,8 @@ public class Professor {
     private String email;
 
     @OneToMany(mappedBy = "professor")
+    @JsonIgnore
     private List<Aluno> alunos;
-
-    public Professor() {
-    }
-
-    public Professor(Long id, String nome, String email, List<Aluno> alunos) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        //this.alunos = alunos;
-    }
 
     public Long getId() {
         return id;
@@ -54,6 +47,14 @@ public class Professor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
 
